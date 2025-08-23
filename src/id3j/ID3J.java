@@ -92,9 +92,7 @@ public final class ID3J {
 				is.readNBytes(extendedHeaderSize);
 
 //				byte[] extendedHeaderFlag = is.readNBytes(2);
-//				//CTC data present
 //				boolean crc = (extendedHeaderFlag[0] & 0b1000_0000) != 0;
-//				//パディングサイズ
 //				int paddingSize = toInt8bit(is.readNBytes(4));
 			}
 			int current = 0;
