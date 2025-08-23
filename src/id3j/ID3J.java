@@ -100,24 +100,28 @@ public final class ID3J {
 			int current = 0;
 			while (true) {
 				String name = Util.toString(is.readNBytes(4));
+				current += 4;
 				if ("".equals(name.trim())) {
 					break;
 				}
-				TagKeys key = TagKeys.valueOf(name);
+				try {
+					TagKeys key = TagKeys.valueOf(name);
 
-				current += 4;
-				int frameSize = Util.toInt8bit(is.readNBytes(4));
+					int frameSize = Util.toInt8bit(is.readNBytes(4));
+					current += 4;
+					//flagは多分使わないのでスキップ
+					byte[] flags = is.readNBytes(2);
+					current += 2;
+					//data
+					byte[] data = is.readNBytes(frameSize);
+					current += frameSize;
 
-				current += 4;
-				//flagは多分使わないのでスキップ
-				byte[] flags = is.readNBytes(2);
-				current += 2;
-				//data
-				byte[] data = is.readNBytes(frameSize);
-				current += frameSize;
+					key.set(r, data);
 
-				key.set(r, data);
-				if (current >= tagSize) {
+					if (current >= tagSize) {
+						break;
+					}
+				} catch (IllegalArgumentException e) {
 					break;
 				}
 			}
