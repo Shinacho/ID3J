@@ -23,5 +23,5 @@
  */
 
 module ID3J {
-	exports  jd3j;
+	exports  id3j;
 }

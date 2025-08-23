@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package jd3j;
+package id3j;
 
 import java.io.File;
 import java.io.FileInputStream;
