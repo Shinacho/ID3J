@@ -24,4 +24,5 @@
 
 module ID3J {
 	exports  id3j;
+	requires transitive java.desktop;
 }
