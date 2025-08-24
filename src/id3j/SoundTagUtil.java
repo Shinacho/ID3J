@@ -28,7 +28,7 @@ import java.util.Arrays;
  * @vesion 1.0.0 - 2025/08/24_2:05:55<br>
  * @author Shinacho.<br>
  */
-class ID3Parser {
+class SoundTagUtil {
 
 	static String toString(byte[] b) {
 		char[] c = new char[b.length];
@@ -36,6 +36,22 @@ class ID3Parser {
 			c[i] = (char) b[i];
 		}
 		return String.valueOf(c);
+	}
+
+	static int toInt8bitReverse(byte[] v) {
+		if (v.length != 4) {
+			throw new InternalError("to int : not 4 byte");
+		}
+		byte[] b = new byte[4];
+		for( int i = 0, j = 3; i< 4; i++, j -- ){
+			b[i] = v[j];
+		}
+
+		
+		return ((b[0] & 0xFF) << 24)
+				| ((b[1] & 0xFF) << 16)
+				| ((b[2] & 0xFF) << 8)
+				| ((b[3] & 0xFF));
 	}
 
 	static int toInt8bit(byte[] b) {

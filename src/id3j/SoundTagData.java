@@ -19,6 +19,8 @@ package id3j;
 import java.awt.image.BufferedImage;
 import java.time.Year;
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Tags.<br>
@@ -26,7 +28,7 @@ import java.util.EnumMap;
  * @vesion 1.0.0 - 2025/08/24_0:39:13<br>
  * @author Shinacho.<br>
  */
-public class ID3Tags {
+public class SoundTagData {
 
 	public static class V1Tags {
 
@@ -54,16 +56,19 @@ public class ID3Tags {
 	}
 	public final V1Tags v1Tags;
 	private final EnumMap<ID3V23TagKeys, String> v2Tags;
+	private final Map<RIFFTagKeys, String> riffTags;
 	private BufferedImage apic;
 
-	ID3Tags() {
+	SoundTagData() {
 		this.v1Tags = new V1Tags(null, null, null, null, null, 0);
 		this.v2Tags = new EnumMap<>(ID3V23TagKeys.class);
+		this.riffTags = new HashMap<>();
 	}
 
-	ID3Tags(V1Tags v1Tags) {
+	SoundTagData(V1Tags v1Tags) {
 		this.v1Tags = v1Tags;
 		this.v2Tags = new EnumMap<>(ID3V23TagKeys.class);
+		this.riffTags = new HashMap<>();
 	}
 
 	public BufferedImage getAPIC() {
@@ -74,8 +79,12 @@ public class ID3Tags {
 		this.apic = image;
 	}
 
-	void put(ID3V23TagKeys k, String v) {
+	void putID3(ID3V23TagKeys k, String v) {
 		v2Tags.put(k, v);
+	}
+
+	void putRIFF(RIFFTagKeys key, String v) {
+		riffTags.put(key, v);
 	}
 
 	public EnumMap<ID3V23TagKeys, String> getV2Tags() {
@@ -88,7 +97,7 @@ public class ID3Tags {
 
 	@Override
 	public String toString() {
-		return "ID3Tags{" + "v1Tags=" + v1Tags + ", v2Tags=" + v2Tags + '}';
+		return "TagData{" + "v1Tags=" + v1Tags + ", v2Tags=" + v2Tags + ", riffTags=" + riffTags + ", apic=" + apic + '}';
 	}
 
 }

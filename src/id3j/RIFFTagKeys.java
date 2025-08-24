@@ -17,31 +17,31 @@
 package id3j;
 
 /**
- * ID3IOException.<br>
+ * RIFFTagKeys.<br>
  *
- * @vesion 1.0.0 - 2025/08/24_0:42:41<br>
+ * @vesion 1.0.0 - 2025/08/24_15:53:48<br>
  * @author Shinacho.<br>
  */
-public class ID3IOException extends RuntimeException {
+public enum RIFFTagKeys {
+	IEND,
+	COP6,
+	IPRD,
+	IART,
+	ICMT,
+	ICOP,
+	INAM,
+	ITRK,
+	TALB,
+	COMM,
+	TCOM,
+	TCOP,
+	TPOS,
+	TRCK,
+	IHDR,
+	IDAT,;
 
-	/**
-	 * Creates a new instance of <code>ID3IOException</code> without detail
-	 * message.
-	 */
-	public ID3IOException() {
+	void set(SoundTagData t, byte[] data) {
+		t.putRIFF(this, SoundTagUtil.toString(data));
 	}
 
-	/**
-	 * Constructs an instance of <code>ID3IOException</code> with the specified
-	 * detail message.
-	 *
-	 * @param msg the detail message.
-	 */
-	public ID3IOException(String msg) {
-		super(msg);
-	}
-
-	public ID3IOException(Exception ex) {
-		super(ex);
-	}
 }

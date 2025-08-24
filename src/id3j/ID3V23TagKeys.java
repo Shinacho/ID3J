@@ -33,7 +33,7 @@ public enum ID3V23TagKeys {
 	AENC("Audio encryption"),
 	APIC("Attached picture") {
 		@Override
-		void set(ID3Tags t, byte[] data) {
+		void set(SoundTagData t, byte[] data) {
 			int p = 0;
 			if (data.length < 4) {
 				throw new IllegalArgumentException("Too short for APIC");
@@ -84,16 +84,18 @@ public enum ID3V23TagKeys {
 			byte[] val = Arrays.copyOfRange(data, p, data.length);
 
 			try (ByteArrayInputStream is = new ByteArrayInputStream(val)) {
+				ImageIO.setUseCache(false);
 				BufferedImage image = ImageIO.read(is);
+				ImageIO.setUseCache(true);
 				if (image == null) {
 					//サポート外
 					return;
 				}
 				t.setAPIC(image);
-				t.getV2Tags().put(this, "image exists");
+				t.putID3(this, "image exists");
 			} catch (Exception ex) {
 				//APIC解析不能
-				throw new ID3IOException(ex);
+				throw new SoundTagIOException(ex);
 			}
 		}
 
@@ -118,13 +120,13 @@ public enum ID3V23TagKeys {
 	},
 	COMM("Comments") {
 		@Override
-		void set(ID3Tags t, byte[] data) {
+		void set(SoundTagData t, byte[] data) {
 			final int OFFSET = 8;
-			Charset cs = ID3Parser.getEncoding(data[0]);
+			Charset cs = SoundTagUtil.getEncoding(data[0]);
 			byte[] val = new byte[data.length - OFFSET];
 			System.arraycopy(data, OFFSET, val, 0, val.length);
-			String value = ID3Parser.toStringFrame(val, cs);
-			t.put(this, value);
+			String value = SoundTagUtil.toStringFrame(val, cs);
+			t.putID3(this, value);
 		}
 
 	},
@@ -186,7 +188,34 @@ public enum ID3V23TagKeys {
 	TSRC("ISRC (international standard recording code)"),
 	TSSE("Software/Hardware and settings used for encoding"),
 	TYER("Year"),
-	TXXX("User defined text information frame"),
+	TXXX("User defined text information frame") {
+		@Override
+		void set(SoundTagData t, byte[] data) {
+			//ASCIIのみ！！！！！
+
+			//encoding
+			int p = 1;
+			//2b
+			p += 2;
+			//"TXXX"
+			p += 2 * 4;
+			//0x00
+			p++;
+			//u0000
+			p += 2;
+			//2b
+			p++;
+			var a = Arrays.copyOfRange(data, p, data.length);
+			char[] c = new char[a.length / 2 + 1];
+			for (int i = 0, j = 0; i < a.length; i++) {
+				if (a[i] != 0x00) {
+					c[j++] = (char) a[i];
+				}
+			}
+			String val = String.valueOf(c);
+			t.putID3(this, val);
+		}
+	},
 	UFID("Unique file identifier"),
 	USER("Terms of use"),
 	USLT("Unsychronized lyric/text transcription"),
@@ -209,9 +238,8 @@ public enum ID3V23TagKeys {
 		return name;
 	}
 
-	//Virtual
-	void set(ID3Tags t, byte[] data) {
-		t.put(this, ID3Parser.toStringFrame(data));
+	void set(SoundTagData t, byte[] data) {
+		t.putID3(this, SoundTagUtil.toStringFrame(data));
 	}
 
 }

@@ -17,31 +17,31 @@
 package id3j;
 
 /**
- * ID3NotFoundException.<br>
+ * ID3IOException.<br>
  *
- * @vesion 1.0.0 - 2025/08/24_0:40:52<br>
+ * @vesion 1.0.0 - 2025/08/24_0:42:41<br>
  * @author Shinacho.<br>
  */
-public class ID3NotFoundException extends RuntimeException {
+public class SoundTagIOException extends RuntimeException {
 
 	/**
-	 * Creates a new instance of <code>ID3NotFoundException</code> without
-	 * detail message.
+	 * Creates a new instance of <code>ID3IOException</code> without detail
+	 * message.
 	 */
-	public ID3NotFoundException() {
+	public SoundTagIOException() {
 	}
 
 	/**
-	 * Constructs an instance of <code>ID3NotFoundException</code> with the
-	 * specified detail message.
+	 * Constructs an instance of <code>ID3IOException</code> with the specified
+	 * detail message.
 	 *
 	 * @param msg the detail message.
 	 */
-	public ID3NotFoundException(String msg) {
+	public SoundTagIOException(String msg) {
 		super(msg);
 	}
 
-	public ID3NotFoundException(Exception ex) {
+	public SoundTagIOException(Exception ex) {
 		super(ex);
 	}
 }
