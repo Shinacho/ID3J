@@ -207,7 +207,7 @@ public enum ID3V23TagKeys {
 			p++;
 			var a = Arrays.copyOfRange(data, p, data.length);
 			char[] c = new char[a.length / 2 + 1];
-			for (int i = 0, j = 0; i < a.length; i++) {
+			for (int i = 0, j = 0; i < a.length && j < c.length; i++) {
 				if (a[i] != 0x00) {
 					c[j++] = (char) a[i];
 				}
