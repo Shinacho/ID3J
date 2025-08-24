@@ -221,7 +221,6 @@ public final class SoundTagSystem {
 						{
 							byte[] v = new byte[size];
 							raf.read(v);
-							System.out.println(tagKeys + " / " + size + " / " + SoundTagUtil.toString(v));
 							location += size;
 							tagKeys.set(r, v);
 						}
@@ -245,7 +244,6 @@ public final class SoundTagSystem {
 					{
 						byte v = raf.readByte();
 						if (v != 0x03) { //3
-							System.out.println(v);
 							throw new SoundTagNotFoundException(f + " is not id3v2.3");
 						}
 						//revision ...skip
