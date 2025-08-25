@@ -25,7 +25,7 @@ RIFFもID3も、Mp3tag ( https://www.mp3tag.de/en/ )で作ったやつなら読�
 
 ＜細かいデータの解説＞
  - ID3およびRIFFのタグは、4文字の英数字大文字で識別される名前に対応する情報です。この名前は、～KeysというEnumで定義してますが、全部定義できてるかはわかりません。
-   - 詳細はここ参照→https://id3.org/id3v2.3.0#Relative_volume_adjustment
+   - 詳細はここ参照→https://id3.org/id3v2.3.0
    - RIFFは規格がないみたいで、名前の統一がされていないっぽい。上記のMp3tagというソフトで作成できるタグをベースに解析処理を作っています。読めないタグがあったら、RIFFTagKeysに追加してください。
  - よく使う項目
   - APIC：上記参照。
