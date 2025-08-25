@@ -31,7 +31,7 @@ RIFFもID3も、Mp3tag ( https://www.mp3tag.de/en/ )で作ったやつなら読�
 <br>
  
  ＜よく使う項目（全部V2タグです）＞
-  - APIC：上記参照。
+  - APIC：上記参照。イメージがある場合には、V2データにはイメージがあるという情報だけ格納されます。イメージ自体は、SoundTagDataから取ってください。BufferedImageです。
   - COMM：コメント。任意の文字列と思ってよいです。
   - TALB：アルバム名。
   - TCOM：作曲者
