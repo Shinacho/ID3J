@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
- * Util.<br>
+ * SoundTagUtil.<br>
  *
  * @vesion 1.0.0 - 2025/08/24_2:05:55<br>
  * @author Shinacho.<br>

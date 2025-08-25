@@ -17,7 +17,7 @@
 package id3j;
 
 /**
- * ID3NotFoundException.<br>
+ * SoundTagNotFoundException.<br>
  *
  * @vesion 1.0.0 - 2025/08/24_0:40:52<br>
  * @author Shinacho.<br>

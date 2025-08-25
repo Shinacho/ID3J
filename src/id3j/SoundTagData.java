@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Tags.<br>
+ * SoundTagData.<br>
  *
  * @vesion 1.0.0 - 2025/08/24_0:39:13<br>
  * @author Shinacho.<br>
@@ -97,7 +97,7 @@ public class SoundTagData {
 
 	@Override
 	public String toString() {
-		return "TagData{" + "v1Tags=" + v1Tags + ", v2Tags=" + v2Tags + ", riffTags=" + riffTags + ", apic=" + apic + '}';
+		return "TagData{" + "V1=" + v1Tags + ", V2=" + v2Tags + ", RIFF=" + riffTags + ", APIC=" + (apic != null) + '}';
 	}
 
 }

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import javax.imageio.ImageIO;
 
 /**
- * TagKeys.<br>
+ * ID3V23TagKeys.<br>
  *
  * @vesion 1.0.0 - 2025/08/24_1:25:04<br>
  * @author Shinacho.<br>

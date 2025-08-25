@@ -24,7 +24,7 @@ import java.nio.file.Files;
 import java.time.Year;
 
 /**
- * ID3J.<br>
+ * SoundTagSystem.<br>
  *
  * @vesion 1.0.0 - 2025/08/24_0:39:35<br>
  * @author Shinacho.<br>
@@ -158,18 +158,19 @@ public final class SoundTagSystem {
 					byte[] v = new byte[4];
 					raf.read(v);
 					if (!"LIST".equals(SoundTagUtil.toString(v))) {
-						throw new InternalError("RIFF LIST not found : " + location);
+						throw new SoundTagNotFoundException("RIFF LIST not found : " + location);
 					}
 				}
-
-				//"INFO"の"O"の次まで飛ばす
-				for (; location < raf.length(); location++) {
-					raf.seek(location);
-					if (raf.readByte() == 0x4F) {//"O"
-						location++;
-						break;
+				//"LIST" .... "INFO"チェック
+				{
+					raf.read(new byte[4]);
+					byte[] v = new byte[4];
+					raf.read(v);
+					if (!"INFO".equals(SoundTagUtil.toString(v))) {
+						throw new SoundTagNotFoundException("RIFF LIST....INFO not found : " + location);
 					}
 				}
+				location = raf.getFilePointer();
 
 				//タグ解析開始
 				boolean isID3 = false;
